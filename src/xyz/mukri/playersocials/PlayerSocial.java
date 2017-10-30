@@ -23,6 +23,7 @@ public class PlayerSocial extends JavaPlugin {
 		if(!cfgData.isExists()) {
 			cfgData.createConfig();
 		}
+		
 	}
 	
 	public void onDisable() {

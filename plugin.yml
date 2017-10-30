@@ -1,0 +1,8 @@
+name: PlayerSocial
+version: 1.0
+main: xyz.mukri.playersocials.PlayerSocial
+author: Mukri
+description: Player socials with level/rewards and more by Mukri C 2017.
+commands:
+  profile:
+    description: Check players profile.
