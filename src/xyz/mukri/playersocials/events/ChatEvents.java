@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import xyz.mukri.playersocials.PlayerSocial;
 import xyz.mukri.playersocials.utils.LevelSystem;
@@ -16,23 +16,22 @@ import xyz.mukri.playersocials.utils.LevelSystem;
 /**
  * CopyRighted by DoomGary / Mukri
  * Please do not edit or copy without permissions.
- * Made on: 9:02:54 AM 
+ * Made on: 7:16:56 PM 
  */
 
-public class CommandEvents implements Listener {
+public class ChatEvents implements Listener {
 	
 	public PlayerSocial main;
 	public Map<String, Long> cooldown = new HashMap<>();
 	
-	public CommandEvents(PlayerSocial main) {
+	public ChatEvents(PlayerSocial main) {
 		this.main = main;
 	}
 	
-	
 	@EventHandler
-	public void onCommand(PlayerCommandPreprocessEvent e) {
+	public void onChat(AsyncPlayerChatEvent e) {
 		final Player p = e.getPlayer();
-		int cooldowntime = 5;
+		int cooldowntime = PlayerSocial.getInstance().cfgData.getConfig().getInt("Selections.Cooldown-Exp");
 		
 		if(cooldown.containsKey(p.getName())) {
 			long left = ((cooldown.get(p.getName()) / 1000) + cooldowntime) - (System.currentTimeMillis() / 1000);

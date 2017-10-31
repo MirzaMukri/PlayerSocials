@@ -5,6 +5,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import xyz.mukri.playersocials.utils.Gui;
+
 
 /**
  * CopyRighted by DoomGary / Mukri
@@ -25,7 +27,11 @@ public class ProfileCmd implements CommandExecutor {
 		Player p = (Player) sender;
 		
 		if(cmd.getName().equalsIgnoreCase("profile")) {
-			
+			if(args.length < 1) {
+				Gui.openProfile(p);
+			} else {
+				Gui.openProfile(p);
+			}
 		}
 		
 		return false;

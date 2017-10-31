@@ -16,36 +16,35 @@ import xyz.mukri.playersocials.file.PlayerData;
  */
 
 public class LevelSystem {
-	
+
 	public static void addExp(Player p) {
 		PlayerData data = new PlayerData(p.getName(), p.getUniqueId().toString());
-		
-		if(data.isExists()) {
-			Random r = new Random();
-			
-			int lvl = data.getLevelInt();
-			int exp = data.getExpInt();
-			int expRan = r.nextInt(10);
-			
-			data.setExpInt(exp + expRan);
-			exp = exp + expRan;
-			
-			if(exp > (lvl * 20)) {
-				//LEVEL UP
-				data.setLevelInt(lvl + 1);
-				
-				for(String line : PlayerSocial.getInstance().cfgData.getConfig().getStringList("Msg.Lebel-Up")) {
-					line = ChatColor.translateAlternateColorCodes('&', line);
-					line.replace("{LEVEL}", String.valueOf(lvl + 1));
-					
-				}
-			}
-			
-			data.save();
-			
-		} else {
-			
+
+		if(!data.isExists()) {
+			data.createPlayer(p);
 		}
+		
+		Random r = new Random();
+
+		int lvl = data.getLevelInt();
+		int exp = data.getExpInt();
+		int expRan = r.nextInt(10) + 1;
+
+		data.setExpInt(exp + expRan);
+		exp = exp + expRan;
+
+		if(exp > (lvl * 20)) {
+			//LEVEL UP
+			data.setLevelInt(lvl + 1);
+
+			for(String line : PlayerSocial.getInstance().cfgData.getConfig().getStringList("Msg.Lebel-Up")) {
+				line = ChatColor.translateAlternateColorCodes('&', line);
+				line.replace("{LEVEL}", String.valueOf(lvl + 1));
+				p.sendMessage(line);
+			}
+		}
+
+		data.save();
 	}
 
 }
